@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   Pressable,
+  Image,
 } from 'react-native';
 import {Auth} from '../../@types/navigation/scenes';
-import Icon from 'react-native-vector-icons/Feather';
 import {TextInput} from 'react-native-gesture-handler';
+import {AuthContext} from '../../providers/AuthProvider';
 
 type SigninScreenRouterProp = RouteProp<AuthStackParamList, Auth.Signin>;
 
@@ -26,6 +27,10 @@ type SigninScreenProps = {
 };
 const SigninScreen = (props: SigninScreenProps) => {
   const [secureText, setSecureText] = useState(true);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const {signin} = useContext(AuthContext);
+
   return (
     <View
       style={{
@@ -45,6 +50,8 @@ const SigninScreen = (props: SigninScreenProps) => {
       </Text>
 
       <TextInput
+        value={email}
+        onChangeText={setEmail}
         autoCapitalize="none"
         style={[
           styles.inputText,
@@ -65,6 +72,8 @@ const SigninScreen = (props: SigninScreenProps) => {
           {flexDirection: 'row', justifyContent: 'space-between'},
         ]}>
         <TextInput
+          value={password}
+          onChangeText={setPassword}
           secureTextEntry={secureText}
           autoCapitalize="none"
           autoCorrect={false}
@@ -80,7 +89,14 @@ const SigninScreen = (props: SigninScreenProps) => {
         <Pressable
           onPress={() => setSecureText(!secureText)}
           style={{paddingRight: 10}}>
-          <Icon name={secureText ? 'eye' : 'eye-off'} size={20} color="gray" />
+          <Image
+            source={
+              secureText
+                ? require(`../../assets/icons/eye-outline.png`)
+                : require(`../../assets/icons/eye-filled.png`)
+            }
+            style={{tintColor: 'gray', width: 24, height: 24}}
+          />
         </Pressable>
       </View>
 
@@ -90,8 +106,15 @@ const SigninScreen = (props: SigninScreenProps) => {
 
       <View style={styles.ctaContainer}>
         <Text style={styles.ctaText}>Sign in</Text>
-        <TouchableOpacity style={styles.ctaButton}>
-          <Icon name="arrow-right" size={44} color="#fff" />
+        <TouchableOpacity
+          style={styles.ctaButton}
+          onPress={() => {
+            signin(email, password);
+          }}>
+          <Image
+            style={{tintColor: 'white', width: 34, height: 34}}
+            source={require('../../assets/icons/arrow-right.png')}
+          />
         </TouchableOpacity>
       </View>
 
