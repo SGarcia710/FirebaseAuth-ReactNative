@@ -48,6 +48,25 @@ const HomeScreen = (props: HomeScreenProps) => {
           Signout
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          marginTop: 20,
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: 120,
+          height: 44,
+          borderRadius: 12,
+          backgroundColor: '#333',
+        }}
+        onPress={() => props.navigation.navigate(App.CardsList)}>
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 18,
+          }}>
+          CardsList
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
