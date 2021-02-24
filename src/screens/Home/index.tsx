@@ -27,7 +27,6 @@ const HomeScreen = (props: HomeScreenProps) => {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <StatusBar hidden />
       <Text>HomeScreen</Text>
       <TouchableOpacity
         style={{

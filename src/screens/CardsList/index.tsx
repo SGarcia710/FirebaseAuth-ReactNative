@@ -40,9 +40,19 @@ const CardsListScreen = (props: CardsListScreenProps) => {
           data={data.results}
           showsVerticalScrollIndicator={false}
           renderItem={({item, index}) => {
-            return <ListCard {...item} index={index} />;
+            return (
+              <ListCard
+                handleOnPress={() => {
+                  props.navigation.navigate(App.CharacterDetails, {
+                    character: item,
+                  });
+                }}
+                {...item}
+                index={index}
+              />
+            );
           }}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
         />
       )}
       {!data && (

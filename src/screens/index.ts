@@ -6,3 +6,4 @@ export {default as SignupScreen} from './Signup';
 // AppStack
 export {default as HomeScreen} from './Home';
 export {default as CardsListScreen} from './CardsList';
+export {default as CharacterDetailsScreen} from './CharacterDetails';

@@ -1,63 +1,71 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, Touchable, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const ListCard = (props: {index: number} & Character) => {
+const ListCard = (
+  props: {
+    index: number;
+    handleOnPress: () => void;
+  } & Character,
+) => {
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          marginTop: props.index === 0 ? 21 : 0,
-        },
-      ]}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{uri: props.image}} />
-      </View>
-      <View style={styles.infoContainer}>
-        <View style={[styles.infoContainerTop]}>
-          <Text style={styles.name}>{props.name}</Text>
-          <Text style={styles.specie}>{props.species}</Text>
+    <TouchableOpacity onPress={props.handleOnPress}>
+      <View
+        style={[
+          styles.container,
+          {
+            marginTop: props.index === 0 ? 21 : 0,
+          },
+        ]}>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={{uri: props.image}} />
         </View>
-        <View style={styles.infoContainerBottom}>
-          <Text numberOfLines={1} style={styles.location}>
-            {props.location.name}
-          </Text>
-          <Text
-            style={{
-              fontWeight: '800',
-              fontSize: 22,
-            }}>
-            ·
-          </Text>
-          {props.gender !== 'unknown' && (
-            <Image
+        <View style={styles.infoContainer}>
+          <View style={[styles.infoContainerTop]}>
+            <Text style={styles.name}>{props.name}</Text>
+            <Text style={styles.specie}>{props.species}</Text>
+          </View>
+          <View style={styles.infoContainerBottom}>
+            <Text numberOfLines={1} style={styles.location}>
+              {props.location.name}
+            </Text>
+            <Text
               style={{
-                marginLeft: 8,
-              }}
-              source={
-                props.gender === 'Male'
-                  ? require('../assets/images/male-outline.png')
-                  : require('../assets/images/female-outline.png')
-              }
-            />
-          )}
-          <Text
-            style={[
-              styles.gender,
-              {
-                color:
+                fontWeight: '800',
+                fontSize: 22,
+              }}>
+              ·
+            </Text>
+            {props.gender !== 'unknown' && (
+              <Image
+                style={{
+                  marginLeft: 8,
+                }}
+                source={
                   props.gender === 'Male'
-                    ? '#0096D1'
-                    : props.gender === 'Female'
-                    ? '#F01159'
-                    : '#333',
-              },
-            ]}>
-            {props.gender}
-          </Text>
+                    ? require('../assets/images/male-outline.png')
+                    : require('../assets/images/female-outline.png')
+                }
+              />
+            )}
+            <Text
+              style={[
+                styles.gender,
+                {
+                  color:
+                    props.gender === 'Male'
+                      ? '#0096D1'
+                      : props.gender === 'Female'
+                      ? '#F01159'
+                      : '#333',
+                },
+              ]}>
+              {props.gender}
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
